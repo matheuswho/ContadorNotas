@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador de Dinheiro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url(img/bg/bg.jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-color: #b4b4b4;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 50px;
+        }
+        .section {
+            background: rgba(177, 172, 172, 0.295);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .item {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 20px;
+        }
+        #notas img {
+            width: 100px;
+            height: 50px;
+        }
+        #moedas img {
+            width: 80px;
+            height: 80px;
+        }
+        input {
+            width: 60px;
+            padding: 5px;
+            text-align: center;
+        }
+        .total {    
+            font-weight: bold;
+            margin-top: 20px;
+            color: white;
+        }
+        button {
+            padding: 10px;
+            margin-top: 10px;
+            background-color: rgb(255, 0, 0);
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #total-geral {
+            color: white;
+        }
+        h2 {
+            color: white;
+        }
+        h1 {
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contador de Dinheiro</h1>
+    <div class="container">
+        <div class="section" id="moedas">
+            <h2>Moedas</h2>
+           <div class="item">
+                <img src="img/moedas/1_real.png" alt="1 real">
+                <input type="number" value="0" data-valor="1">
+            </div>
+            <div class="item">
+                <img src="img/moedas/50_centavos.png" alt="Cinquenta Centavos">
+                <input type="number" value="0" data-valor="0.50">
+            </div>
+            <div class="item">
+                <img src="img/moedas/25_centavos.png" alt="Vinte e Cinco Centavos">
+                <input type="number" value="0" data-valor="0.25">
+            </div>
+            <div class="item">
+                <img src="img/moedas/10_centavos.png" alt="Dez Centavos">
+                <input type="number" value="0" data-valor="0.10">
+            </div>
+            <div class="item">
+                <img src="img/moedas/5_centavos.png" alt="Cinco Centavos">
+                <input type="number" value="0" data-valor="0.05">
+            </div>
+            <div class="total" id="total-moedas">Total em Moedas: R$ 0,00</div>
+            <button onclick="limpar('moedas')">Limpar Moedas</button>
+        </div>
+        <div class="section" id="notas">
+            <h2>Notas</h2>
+            <div class="item">
+                <img src="img/cedulas/200_reais.jpg" alt="200 Reais">
+                <input type="number" value="0" data-valor="200">
+            </div>
+            <div class="item">
+                <img src="img/cedulas/100_reais.jpg" alt="100 Reais">
+                <input type="number" value="0" data-valor="100">
+            </div>
+            <div class="item">
+                <img src="img/cedulas/50_reais.png" alt="50 Reais">
+                <input type="number" value="0" data-valor="50">
+            </div>
+            <div class="item">
+                <img src="img/cedulas/20_reais.png" alt="20 Reais">
+                <input type="number" value="0" data-valor="20">
+            </div>
+            <div class="item">
+                <img src="img/cedulas/10_reais.png" alt="10 Reais">
+                <input type="number" value="0" data-valor="10">
+            </div>
+            <div class="item">
+                <img src="img/cedulas/5_reais.png" alt="5 Reais">
+                <input type="number" value="0" data-valor="5">
+            </div>
+            <div class="item">
+                <img src="img/cedulas/2_reais.png" alt="2 Reais">
+                <input type="number" value="0" data-valor="2">
+            </div>
+            <div class="total" id="total-notas">Total em Notas: R$ 0,00</div>
+            <button onclick="limpar('notas')">Limpar Notas</button>
+        </div>
+    </div>
+    <h2 id="total-geral">TOTAL = R$ 0,00</h2>
+    <script>
+        alert("Esse Site Foi Desenvolvido para Usar no Computador, Fiquei com preguiça de deixar Responsivo!")
+        function atualizarTotal() {
+            let totalMoedas = 0.0;
+            document.querySelectorAll('#moedas input').forEach(input => {
+                totalMoedas += input.value * parseFloat(input.dataset.valor);
+            });
+            document.getElementById('total-moedas').textContent = `Total em Moedas: R$ ${totalMoedas.toFixed(2)} Centavos`;
+            
+            let totalNotas = 0.0;
+            document.querySelectorAll('#notas input').forEach(input => {
+                totalNotas += input.value * parseFloat(input.dataset.valor);
+            });
+            document.getElementById('total-moedas').textContent = `Total em Moedas: R$ ${totalMoedas.toLocaleString('pt-BR', { minimumFractionDigits: 2 })} Centavos`;
+    document.getElementById('total-notas').textContent = `Total em Notas: R$ ${totalNotas.toLocaleString('pt-BR', { minimumFractionDigits: 2 })} Reais`;
+            document.getElementById('total-geral').textContent = `TOTAL = R$ ${(totalMoedas + totalNotas).toLocaleString('pt-BR', { minimumFractionDigits: 2 })} Reais`;
+            }
+
+        function limpar(tipo) {
+            document.querySelectorAll(`#${tipo} input`).forEach(input => input.value = 0);
+            atualizarTotal();
+        }
+
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', atualizarTotal);
+        });
+    </script>
+</body>
+</html>
